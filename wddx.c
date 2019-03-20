@@ -149,10 +149,18 @@ ZEND_GET_MODULE(wddx)
 #endif /* COMPILE_DL_WDDX */
 /* }}} */
 
+static const zend_module_dep wddx_deps[] = {
+	ZEND_MOD_REQUIRED("xml")
+	ZEND_MOD_END
+};
+
+
 /* {{{ wddx_module_entry
  */
 zend_module_entry wddx_module_entry = {
-	STANDARD_MODULE_HEADER,
+	STANDARD_MODULE_HEADER_EX,
+	NULL,
+	wddx_deps,
 	"wddx",
 	wddx_functions,
 	PHP_MINIT(wddx),
@@ -364,7 +372,7 @@ void php_wddx_packet_start(wddx_packet *packet, char *comment, size_t comment_le
 	php_wddx_add_chunk_static(packet, WDDX_PACKET_S);
 	if (comment) {
 		zend_string *escaped = php_escape_html_entities(
-			comment, comment_len, 0, ENT_QUOTES, NULL);
+			(unsigned char *)comment, comment_len, 0, ENT_QUOTES, NULL);
 
 		php_wddx_add_chunk_static(packet, WDDX_HEADER_S);
 		php_wddx_add_chunk_static(packet, WDDX_COMMENT_S);

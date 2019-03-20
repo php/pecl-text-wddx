@@ -25,7 +25,7 @@ extern zend_module_entry wddx_module_entry;
 #define wddx_module_ptr &wddx_module_entry
 
 #include "php_version.h"
-#define PHP_WDDX_VERSION PHP_VERSION
+#define PHP_WDDX_VERSION "1.0.0-dev"
 
 PHP_FUNCTION(wddx_serialize_value);
 PHP_FUNCTION(wddx_serialize_vars);
