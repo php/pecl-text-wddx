@@ -1,6 +1,6 @@
 /*
    +----------------------------------------------------------------------+
-   | PHP Version 7                                                        |
+   | PHP Version 8 - With warnings                                        |
    +----------------------------------------------------------------------+
    | Copyright (c) The PHP Group                                          |
    +----------------------------------------------------------------------+
@@ -13,7 +13,7 @@
    | license@php.net so we can mail you a copy immediately.               |
    +----------------------------------------------------------------------+
    | Author: Andrei Zmievski <andrei@php.net>                             |
-   +----------------------------------------------------------------------+
+  +----------------------------------------------------------------------+
  */
 
 #ifdef HAVE_CONFIG_H
@@ -982,7 +982,7 @@ static void php_wddx_pop_element(void *user_data, const XML_Char *name)
 												zval_add_ref, 0);
 
 								if (incomplete_class) {
-									php_store_class_name(&obj, Z_STRVAL(ent1->data), Z_STRLEN(ent1->data));
+									php_store_class_name(&obj, Z_STRVAL(ent1->data));
 								}
 
 								/* Clean up old array entry */
