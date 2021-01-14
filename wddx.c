@@ -982,7 +982,11 @@ static void php_wddx_pop_element(void *user_data, const XML_Char *name)
 												zval_add_ref, 0);
 
 								if (incomplete_class) {
+#if PHP_VERSION_ID < 80000
 									php_store_class_name(&obj, Z_STRVAL(ent1->data), Z_STRLEN(ent1->data));
+#else
+									php_store_class_name(&obj, Z_STR(ent1->data));
+#endif
 								}
 
 								/* Clean up old array entry */
@@ -996,7 +1000,11 @@ static void php_wddx_pop_element(void *user_data, const XML_Char *name)
 						/* Clean up class name var entry */
 						zval_ptr_dtor(&ent1->data);
 					} else if (Z_TYPE(ent2->data) == IS_OBJECT) {
+#if PHP_VERSION_ID < 80000
 						zend_update_property(Z_OBJCE(ent2->data), &ent2->data, ent1->varname, strlen(ent1->varname), &ent1->data);
+#else
+						zend_update_property(Z_OBJCE(ent2->data), Z_OBJ(ent2->data), ent1->varname, strlen(ent1->varname), &ent1->data);
+#endif
 						Z_TRY_DELREF(ent1->data);
 					} else {
 						zend_symtable_str_update(target_hash, ent1->varname, strlen(ent1->varname), &ent1->data);

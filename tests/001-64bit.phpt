@@ -1,8 +1,10 @@
 --TEST--
 wddx deserialization test (64-bit)
 --SKIPIF--
-<?php if (!extension_loaded("wddx")) print "skip"; ?>
-<?php echo PHP_INT_SIZE != 8 ? "skip 64-bit only" : "OK" ?>
+<?php
+if (!extension_loaded("wddx")) print "skip";
+if (PHP_INT_SIZE != 8) echo "skip 64-bit only";
+?>
 --INI--
 precision=14
 --FILE--
